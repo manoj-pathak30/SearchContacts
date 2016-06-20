@@ -38,7 +38,7 @@ public class ContactService {
 	public void searchContact(String searchStr) {
 		
 		for (Contact contact : contacts) {
-			if (contact.getName().equalsIgnoreCase(searchStr)) {
+			if (contact.getName().equalsIgnoreCase(searchStr)||(searchStr.contains(" ") && contact.getName().contains(searchStr))) {
 				System.out.println(contact.getName());
 			} else if (contact.getFirstName().toLowerCase().startsWith(searchStr) || contact.getLastName().toLowerCase().startsWith(searchStr)) {
 				System.out.println(contact.getName());
