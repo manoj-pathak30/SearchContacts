@@ -1,4 +1,4 @@
-package com.contact;
+package com.helpshift;
 
 /**
  * Application entryPoint to execute contactService.
@@ -7,6 +7,7 @@ package com.contact;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Set;
 
 public class Application {
 	
@@ -25,13 +26,19 @@ public class Application {
 				if (choose.equals("1")) {
 					System.out.print("Enter name: ");
 					String name = input.readLine();
-					contactService.addContact(name.trim());
-
+					if(isValidName(name.trim()))
+						contactService.addContact(name.trim());
+					else
+						System.out.println("Please enter valid name.");
+					
 				} else if (choose.equals("2")) {
 					System.out.print("Enter name: ");
 					String searchStr = input.readLine();
-					contactService.searchContact(searchStr.trim().toLowerCase());
-
+					Set<Contact> result = contactService.searchContact(searchStr.trim().toLowerCase());
+					
+					for(Contact contact : result){
+						System.out.println(contact.getName());
+					}
 				} else if (choose.equals("3")) {
 					System.out.println("Happy Searching...");
 					System.exit(0);
@@ -42,5 +49,18 @@ public class Application {
 				System.err.println("Exception occured! " + e.getMessage());
 			}
 		}
+	}
+	
+	/**
+	 * API to validate contact name
+	 * @param name
+	 * @return true|false
+	 */
+	public static boolean isValidName(String name) {
+		
+		if (name.length() > 50 || (name.contains(" ") && name.split("\\s+").length > 2))
+			return false;
+		else
+			return true;
 	}
 }
