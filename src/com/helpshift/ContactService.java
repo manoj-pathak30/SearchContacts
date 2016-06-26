@@ -2,13 +2,18 @@ package com.helpshift;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 
 public class ContactService {
 
-	private HashMap<Character, Set<Contact>> contactLookup = new HashMap<>();
+	private HashMap<Character, Set<Contact>> contactLookup = null;
+	
+	public ContactService() {
+		contactLookup = new HashMap<>();
+	}
 
 	/**
 	 * API to add contact into contactList to make it searchable.
@@ -76,5 +81,8 @@ public class ContactService {
 		return searchResult;
 	}
 
+	public Map<Character, Set<Contact>> getContactLookup(){
+		return contactLookup;
+	}
 }
 
