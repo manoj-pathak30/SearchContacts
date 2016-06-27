@@ -24,22 +24,6 @@ public class ContactServiceTest {
 		Assert.assertTrue(((List<Contact>) contactService.getContactLookup().get('m')).size() == 2);
 		Assert.assertTrue(((List<Contact>) contactService.getContactLookup().get('p')).size() == 2);
 	}
-
-	@Test
-	public void searchContactsTest() throws Exception {
-		ContactService contactService = new ContactService();
-		contactService.addContact("Ayansh Pathak");
-		contactService.addContact("Manoj");
-		contactService.addContact("Manoj Pathak");
-		contactService.addContact("Chris Harris");
-		contactService.addContact("Chris");
-		
-
-		List<Contact> result = contactService.searchContacts("ch");
-		Assert.assertTrue(result.size() == 2);
-		Assert.assertTrue(result.get(0).toString().equals("Chris Harris"));
-		Assert.assertTrue(result.get(1).toString().equals("Chris"));		
-	}
 	
 	@Test
 	public void searchExactContactsTest() throws Exception {
