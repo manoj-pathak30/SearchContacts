@@ -1,46 +1,61 @@
 package com.helpshift.test;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.helpshift.Contact;
-import com.helpshift.ContactService;
+import com.helpshift.domain.Contact;
+import com.helpshift.service.ContactService;
 
 
 public class ContactServiceTest {
 
 	@Test
-	public void add() throws Exception {
+	public void addContactTest() throws Exception {
 		ContactService contactService = new ContactService();
+		contactService.addContact("Ayansh Pathak");
 		contactService.addContact("Manoj");
 		contactService.addContact("Manoj Pathak");
-		contactService.addContact("Chris");
 		contactService.addContact("Chris Harris");
-		contactService.addContact("Ayansh Pathak");
+		contactService.addContact("Chris");
 		
 		Assert.assertTrue(contactService.getContactLookup().size() == 5);
-		Assert.assertTrue(((Set<Contact>) contactService.getContactLookup().get('m')).size() == 2);
-		Assert.assertTrue(((Set<Contact>) contactService.getContactLookup().get('p')).size() == 2);
+		Assert.assertTrue(((List<Contact>) contactService.getContactLookup().get('m')).size() == 2);
+		Assert.assertTrue(((List<Contact>) contactService.getContactLookup().get('p')).size() == 2);
 	}
 
 	@Test
-	public void searchContacts() throws Exception {
+	public void searchContactsTest() throws Exception {
 		ContactService contactService = new ContactService();
+		contactService.addContact("Ayansh Pathak");
 		contactService.addContact("Manoj");
 		contactService.addContact("Manoj Pathak");
-		contactService.addContact("Ayansh Pathak");
+		contactService.addContact("Chris Harris");
+		contactService.addContact("Chris");
+		
 
-
-		Set<Contact> result = contactService.searchContact("ma");
+		List<Contact> result = contactService.searchContacts("ch");
 		Assert.assertTrue(result.size() == 2);
+		Assert.assertTrue(result.get(0).toString().equals("Chris Harris"));
+		Assert.assertTrue(result.get(1).toString().equals("Chris"));		
+	}
+	
+	@Test
+	public void searchExactContactsTest() throws Exception {
+		ContactService contactService = new ContactService();
+		contactService.addContact("Ayansh Pathak");
+		contactService.addContact("Manoj");
+		contactService.addContact("Manoj Pathak");
+		contactService.addContact("Chris Harris");
+		contactService.addContact("Chris");
 		
-		Iterator<Contact> it = result.iterator();
-		Assert.assertTrue(it.next().toString().equals("Manoj"));
-		
-		Assert.assertTrue(it.next().toString().equals("Manoj Pathak"));
+
+		List<Contact> result = contactService.searchContacts("chris");
+		Assert.assertTrue(result.size() == 2);
+		Assert.assertTrue(result.get(0).toString().equals("Chris"));	
+		Assert.assertTrue(result.get(1).toString().equals("Chris Harris"));
 	}
 
 }
+

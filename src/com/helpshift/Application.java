@@ -7,7 +7,10 @@ package com.helpshift;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Set;
+import java.util.List;
+
+import com.helpshift.domain.Contact;
+import com.helpshift.service.ContactService;
 
 public class Application {
 	
@@ -34,11 +37,15 @@ public class Application {
 				} else if (choose.equals("2")) {
 					System.out.print("Enter name: ");
 					String searchStr = input.readLine();
-					Set<Contact> result = contactService.searchContact(searchStr.trim().toLowerCase());
-					
-					for(Contact contact : result){
-						System.out.println(contact.getName());
-					}
+
+					List<Contact> result = contactService.searchContacts(searchStr.trim().toLowerCase());
+					if (!result.isEmpty()) {
+						for (Contact contact : result) {
+							System.out.println(contact.getName());
+						}
+					} else
+						System.out.println("No contact found!");
+
 				} else if (choose.equals("3")) {
 					System.out.println("Happy Searching...");
 					System.exit(0);

@@ -1,4 +1,4 @@
-package com.helpshift;
+package com.helpshift.domain;
 
 /**
  * java class for Contact
